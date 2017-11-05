@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<!-- 默认访问页面 -->
+	<package name="default" extends="struts-default" namespace="/">
+		<!-- <default-action-ref name="default"></default-action-ref> <action name="default"> 
+			<result>/WEB-INF/view/index.jsp</result> </action> -->
+		<action name="action1" class="actionTest1" method="execute">
+			<result name="success">index.jsp</result>
+			<result name="input">error.jsp</result>
+		</action>
+
+	</package>
+	<package name="user" namespace="/user" extends="struts-default">
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="list_*" class="actionTest1" method="{1}">
+			<result name="add">/user_test1.jsp</result>
+		</action>
+		
+	</package>
+	<package name="book" namespace="/book" extends="default">
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="book_*" class="bookAction"  method="{1}">
+			<result name="update">/index.jsp</result>
+			<result name="add">/index.jsp</result>
+			<result name="findByPage">/index.jsp</result>
+		</action>
+	</package>
+</struts>
